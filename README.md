@@ -37,4 +37,11 @@ PostgreSQL হলো একটি শক্তিশালী ওপেন স�
     LEFT JOIN sightings USING (species_id)
     WHERE sighting_id IS NULL
    ```
-       
+
+## Indexing 
+    টেবিল যখন অনেক বড় হয় এবং অনেক ডাটা থাকে তখন সার্চ দ্রুত করার জন্য Index ব্যবহার করা হয় । 
+    ```
+    create index idx_student_email on  student(email)
+    ```
+## Concurrency
+    অনেক user একসাথে database access করলে conflict এড়াতে PostgreSQL proper concurrency support দেয়
