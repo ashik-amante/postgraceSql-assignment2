@@ -18,6 +18,7 @@ PostgreSQL হলো একটি শক্তিশালী ওপেন স�
 
  ২।  ##  Extensible (Custom functions, data types তৈরি করা যায়)
     PostgreSQL খুব flexible। আমি চাইলে আমার  নিজের custom data type, function, operator, index method তৈরি করতে পারি।
+    
     ```sql
         
         CREATE FUNCTION add_numbers(a INT, b INT) RETURNS INT AS $$
@@ -28,3 +29,12 @@ PostgreSQL হলো একটি শক্তিশালী ওপেন স�
 
         SELECT add_numbers(5, 7); -- ফলাফল 12 
         ```
+
+3. Complex queries, indexing, এবং concurrency support
+       PostgreSQL অনেক advanced SQL support করে: joins, subqueries, window functions, recursive queries
+   ```
+   SELECT common_name FROM species
+    LEFT JOIN sightings USING (species_id)
+    WHERE sighting_id IS NULL
+   ```
+       
