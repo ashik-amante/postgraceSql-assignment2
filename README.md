@@ -19,11 +19,12 @@ PostgreSQL হলো একটি শক্তিশালী ওপেন স�
  ২।  ##  Extensible (Custom functions, data types তৈরি করা যায়)
     PostgreSQL খুব flexible। আমি চাইলে আমার  নিজের custom data type, function, operator, index method তৈরি করতে পারি।
     ```sql
-    -- Custom function: দুই সংখ্যার যোগ
+        
         CREATE FUNCTION add_numbers(a INT, b INT) RETURNS INT AS $$
         BEGIN
         RETURN a + b;
         END;
         $$ LANGUAGE plpgsql;
 
-        SELECT add_numbers(5, 7); -- ফলাফল 12 ```
+        SELECT add_numbers(5, 7); -- ফলাফল 12 
+        ```
