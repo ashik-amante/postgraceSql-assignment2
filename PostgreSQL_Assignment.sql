@@ -71,7 +71,7 @@ INSERT INTO sightings(sighting_id,species_id,ranger_id,location,sighting_time,no
 (15, 5, 5, 'Mountain Range', '2023-05-05 14:00:00', 'Panda spotted in the mountain range');
 
 
---q 1 Register a new ranger with provided data with name = 'Derek Fox' and region = 'Coastal Plains'
+--1️⃣ Register a new ranger with provided data with name = 'Derek Fox' and region = 'Coastal Plains'
 INSERT INTO rangers (name, region)
 VALUES ('Derek Fox', 'Coastal Plains');
 
@@ -105,7 +105,31 @@ JOIN rangers USING (ranger_id)
 ORDER BY sighting_time DESC
 LIMIT 2
 
+-- 7️⃣ Update all species discovered before year 1800 to have status 'Historic'.
+update species
+set conservation_status = 'Historic'
+where extract(year from discovery_date) < 1800
 
+
+-- 8️⃣ Label each sighting's time of day as 'Morning', 'Afternoon', or 'Evening'.
+
+SELECT sighting_id, 
+CASE 
+    WHEN extract(HOUR FROM sighting_time) < 12 THEN 'Morning'
+    when extract(HOUR FROM sighting_time) BETWEEN 12 and 17 THEN 'Afternoon'
+    ELSE 'Evening'
+    END as time_of_day
+ from sightings;
+
+
+-- 9️⃣ Delete rangers who have never sighted any species
+DELETE FROM rangers
+where not EXISTS (
+    SELECT 1
+    from sightings
+    WHERE sightings.ranger_id = rangers.ranger_id
+   
+)
 
 SELECT * FROM rangers
 
