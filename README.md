@@ -56,18 +56,30 @@ Schema হল ডাটাবেস এর লজিকাল স্ট্রা
     ১। নামের conflict এড়াতে 
     ২। একই ডেটাবেসে multiple users ও applications manage করার জন্
     ৩। ডেটার organization রাখার জন্
+    ৪। আলাদা আলাদা permission দেওয়া যায়
+    ৫। একই নামের table আলাদা schema-তে রাখা যায়
 
 ```
--- Schema তৈরি করা
 CREATE SCHEMA hr;
 CREATE SCHEMA accounts;
 
--- Schema-র মধ্যে table তৈরি
 CREATE TABLE hr.employees (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100)
 );
 
--- Access করা
 SELECT * FROM hr.employees;
 ```
+ 
+
+# Explain the Primary Key and Foreign Key concepts in PostgreSQL.
+## Primary Key : 
+কোন টেবিল এর একটি কলাম (একের অধিক অ হতে পারে) যা ঐ টেবিলের প্রতেক row কে unique ভাবে identify করতে পাড়ে তাকে primary key বলে। Primary key এর value null হতে পারে না।
+
+```
+CREATE TABLE RANGERS (
+    ranger_id SERIAL PRIMATY KEY,
+    name VARCHAR(255)
+)
+```
+ 
