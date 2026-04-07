@@ -71,47 +71,47 @@ INSERT INTO sightings(sighting_id,species_id,ranger_id,location,sighting_time,no
 (15, 5, 5, 'Mountain Range', '2023-05-05 14:00:00', 'Panda spotted in the mountain range');
 
 
---1️⃣ Register a new ranger with provided data with name = 'Derek Fox' and region = 'Coastal Plains'
+-- -problem 1
 INSERT INTO rangers (name, region)
 VALUES ('Derek Fox', 'Coastal Plains');
 
--- 2️⃣ Count unique species ever sighted.
+-- -problem 2
 
 SELECT count(DISTINCT species_id) FROM sightings
 
 
--- 3️⃣ Find all sightings where the location includes "Pass".
+-- -problem 3
 
 SELECT * from sightings
 where location ILIKE '%pass%'
 
--- 4️⃣ List each ranger's name and their total number of sightings.
+-- -problem 4
 
 SELECT name, count(sighting_id) as total_sightings FROM rangers
 JOIN sightings USING (ranger_id)
 GROUP BY NAME
 
 
--- 5️⃣ List species that have never been sighted.
+-- -problem 5
 SELECT common_name FROM species
 LEFT JOIN sightings USING (species_id)
 WHERE sighting_id IS NULL
 
 
--- 6️⃣ Show the most recent 2 sightings.
+-- -Problem 6
 SELECT common_name, sighting_time,name from sightings
 JOIN species USING (species_id)
 JOIN rangers USING (ranger_id)
 ORDER BY sighting_time DESC
 LIMIT 2
 
--- 7️⃣ Update all species discovered before year 1800 to have status 'Historic'.
+-- -problem 7
 update species
 set conservation_status = 'Historic'
 where extract(year from discovery_date) < 1800
 
 
--- 8️⃣ Label each sighting's time of day as 'Morning', 'Afternoon', or 'Evening'.
+-- -problem 8
 
 SELECT sighting_id, 
 CASE 
@@ -122,17 +122,11 @@ CASE
  from sightings;
 
 
--- 9️⃣ Delete rangers who have never sighted any species
+-- problem 9
 DELETE FROM rangers
 where not EXISTS (
     SELECT 1
     from sightings
     WHERE sightings.ranger_id = rangers.ranger_id
    
-)
-
-SELECT * FROM rangers
-
-SELECT * FROM sightings
-
-SELECT * FROM species
+);
