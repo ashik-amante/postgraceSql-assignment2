@@ -71,11 +71,44 @@ INSERT INTO sightings(sighting_id,species_id,ranger_id,location,sighting_time,no
 (15, 5, 5, 'Mountain Range', '2023-05-05 14:00:00', 'Panda spotted in the mountain range');
 
 
--- Register a new ranger with provided data with name = 'Derek Fox' and region = 'Coastal Plains'
+--q 1 Register a new ranger with provided data with name = 'Derek Fox' and region = 'Coastal Plains'
 INSERT INTO rangers (name, region)
 VALUES ('Derek Fox', 'Coastal Plains');
+
+-- 2️⃣ Count unique species ever sighted.
+
+SELECT count(DISTINCT species_id) FROM sightings
+
+
+-- 3️⃣ Find all sightings where the location includes "Pass".
+
+SELECT * from sightings
+where location ILIKE '%pass%'
+
+-- 4️⃣ List each ranger's name and their total number of sightings.
+
+SELECT name, count(sighting_id) as total_sightings FROM rangers
+JOIN sightings USING (ranger_id)
+GROUP BY NAME
+
+
+-- 5️⃣ List species that have never been sighted.
+SELECT common_name FROM species
+LEFT JOIN sightings USING (species_id)
+WHERE sighting_id IS NULL
+
+
+-- 6️⃣ Show the most recent 2 sightings.
+SELECT common_name, sighting_time,name from sightings
+JOIN species USING (species_id)
+JOIN rangers USING (ranger_id)
+ORDER BY sighting_time DESC
+LIMIT 2
+
 
 
 SELECT * FROM rangers
 
 SELECT * FROM sightings
+
+SELECT * FROM species
